@@ -1,5 +1,7 @@
 package pointers
 
+import "fmt"
+
 func ZeroVal(iVal int) {
 	iVal = 0
 }
@@ -47,4 +49,19 @@ func (c *Counter) PointerIncrement() *Counter {
 func (c *Counter) PointerDecrement() *Counter {
 	c.Count--
 	return c
+}
+
+type User struct {
+	ID    int
+	Name  string
+	Age   *int
+	Email string
+}
+
+func UpdateUser(u *User) error {
+	if u.Age == nil {
+		return fmt.Errorf("the user is nil")
+	}
+	fmt.Printf("updating the user age to %v \n", *u.Age)
+	return nil
 }

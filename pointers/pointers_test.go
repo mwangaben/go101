@@ -1,7 +1,10 @@
 package pointers
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/go-playground/assert/v2"
+	assert2 "github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -87,5 +90,44 @@ func TestJson(t *testing.T) {
 		config1 := Config{Host: "localhost", Port: &port}
 
 		assert.Equal(t, port, config1.Port)
+
+		data1, _ := json.Marshal(config1)
+
+		ds := `{"host":"localhost","port":8080,"timeout":null}`
+
+		fmt.Printf("the marched config is %v ", string(data1))
+
+		assert.Equal(t, ds, string(data1))
+
+		var actualMap map[string]interface{}
+		err := json.Unmarshal(data1, &actualMap)
+
+		assert2.NoError(t, err)
+
+		expectedMap := map[string]interface{}{
+			"host":    "localhost",
+			"port":    float64(8080),
+			"timeout": nil,
+		}
+
+		assert.Equal(t, expectedMap, actualMap)
 	})
+
+	t.Run("ut test the Struct  pointer", func(t *testing.T) {
+		age := 34
+		benny := &User{ID: 1, Name: "Benedict", Age: &age, Email: "mwangaben@gmail.com"}
+		err := UpdateUser(benny)
+		assert2.NoError(t, err)
+
+		mylan := &User{
+			ID:    2,
+			Name:  "Mylan",
+			Email: "mylan@uj.com",
+		}
+
+		errTwo := UpdateUser(mylan)
+		assert2.Error(t, errTwo, "the user is nils")
+
+	})
+
 }
