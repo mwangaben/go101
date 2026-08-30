@@ -63,6 +63,9 @@ func TestStringOperations(t *testing.T) {
 	t.Run("It replaces the string", func(t *testing.T) {
 		word := "Hello world!"
 		assert2.Equal(t, "Hello Go!", strings.Replace(word, "world", "Go", 1))
+
+		sentence := "Hello world and world"
+		assert2.Equal(t, "Hello Go and Go", strings.Replace(sentence, "world", "Go", 2))
 	})
 
 	t.Run("It split the string into slice", func(t *testing.T) {
@@ -98,7 +101,9 @@ func TestConvert(t *testing.T) {
 
 	t.Run("it Convert int to string", func(t *testing.T) {
 		n := 42
+		b := 1020
 		assert2.Equal(t, "42", strconv.Itoa(n))
+		assert2.Equal(t, "1020", strconv.FormatInt(int64(b), 10))
 	})
 
 	t.Run("it converts string into int", func(t *testing.T) {
@@ -106,11 +111,36 @@ func TestConvert(t *testing.T) {
 		atoi, err := strconv.Atoi(n)
 		assert2.NoError(t, err)
 		assert2.Equal(t, 42, atoi)
+		
+		expected := int64(42)
+		actual, err := strconv.ParseInt(n, 10, 0)
+		assert2.Equal(t, expected, actual)
+		assert2.NoError(t, err)
 	})
 
 	t.Run("it converts Float to string", func(t *testing.T) {
 		float := 3.14
 		expected := "3.14"
 		assert2.Equal(t, expected, strconv.FormatFloat(float, 'f', 2, 64))
+	})
+	t.Run("it convert string into float", func(t *testing.T) {
+		stringFloat := "3.14159"
+		f2, err := strconv.ParseFloat(stringFloat, 64)
+		assert2.NoError(t, err)
+		assert2.Equal(t, 3.14159, f2)
+	})
+
+	t.Run("it converts Bool into string", func(t *testing.T) {
+		b := true
+		sb := strconv.FormatBool(b)
+		assert2.Equal(t, "true", sb)
+	})
+
+	t.Run("it convert string into bool", func(t *testing.T) {
+		sb := "true"
+		b, err := strconv.ParseBool(sb)
+
+		assert2.Equal(t, true, b)
+		assert2.NoError(t, err)
 	})
 }
