@@ -1,8 +1,9 @@
 package structs
 
 import (
-	assert2 "github.com/stretchr/testify/assert"
 	"testing"
+
+	assert2 "github.com/stretchr/testify/assert"
 )
 
 func TestNewBankAccount(t *testing.T) {
@@ -20,6 +21,7 @@ func TestNewBankAccount(t *testing.T) {
 	assert2.Equal(t, 3300, account.GetBalance())
 
 	assert2.Equal(t, 2000, account.GetTransactions()[0].Amount)
+	assert2.Equal(t, 4, len(account.GetTransactions()))
 
 	//fmt.Printf("the transactions: %v \n", account.GetTransactions())
 }
