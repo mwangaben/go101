@@ -113,7 +113,7 @@ func TestJson(t *testing.T) {
 		assert.Equal(t, expectedMap, actualMap)
 	})
 
-	t.Run("ut test the Struct  pointer", func(t *testing.T) {
+	t.Run("it test the Struct  pointer", func(t *testing.T) {
 		age := 34
 		benny := &User{ID: 1, Name: "Benedict", Age: &age, Email: "mwangaben@gmail.com"}
 		err := UpdateUser(benny)
