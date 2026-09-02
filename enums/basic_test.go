@@ -2,13 +2,14 @@ package enums
 
 import (
 	"fmt"
-	assert2 "github.com/stretchr/testify/assert"
 	"testing"
+
+	assert2 "github.com/stretchr/testify/assert"
 )
 
 func TestBasicEnum(t *testing.T) {
 
-	t.Run("testing the basic Enum", func(t *testing.T) {
+	t.Run("testing trr basir Enum", func(t *testing.T) {
 		s := Active
 
 		assert2.Equal(t, 1, int(s))
